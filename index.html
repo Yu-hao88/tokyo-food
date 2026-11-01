@@ -1,0 +1,72 @@
+{\rtf1\ansi\ansicpg950\cocoartf2867
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww11520\viewh8400\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 <!DOCTYPE html>\
+<html lang="zh-TW">\
+<head>\
+    <meta charset="UTF-8">\
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">\
+    <title>\uc0\u26481 \u20140 \u32654 \u39135 \u20844 \u32004 \u25976  - 4\u20154 \u30450 \u36984 \u33287 \u26368 \u20339 \u39184 \u24307 \u25512 \u34214 \u31995 \u32113 </title>\
+    <!-- Tailwind CSS CDN -->\
+    <script src="https://cdn.tailwindcss.com"></script>\
+    <!-- Alpine.js CDN -->\
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>\
+    <!-- FontAwesome Icons -->\
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">\
+    <!-- Google Fonts -->\
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=Shippori+Mincho:wght@600;800&display=swap" rel="stylesheet">\
+    <style>\
+        body \{ font-family: 'Noto Sans TC', sans-serif; background-color: #0f1115; color: #e2e8f0; \}\
+        .font-jp \{ font-family: 'Shippori Mincho', serif; \}\
+        .glass-card \{ background: rgba(22, 27, 34, 0.85); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.08); \}\
+    </style>\
+</head>\
+<body class="min-h-screen pb-16">\
+    <div x-data="tokyoApp()" x-init="initApp()" class="max-w-4xl mx-auto px-4 py-6">\
+        \
+        <header class="text-center my-6 relative">\
+            <div class="inline-block bg-rose-950/60 text-rose-400 border border-rose-800/50 text-xs px-3 py-1 rounded-full mb-2 font-mono">\
+                <i class="fa-solid font-jp">\uc0\u26481 \u20140 \u32654 \u39135 \u20844 \u32004 \u25976  Matchmaker v2.6 (Cloud Sync)</i>\
+            </div>\
+            <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight font-jp">\
+                <span class="text-rose-500">TOKYO</span> 4\uc0\u20154 \u32654 \u39135 \u30450 \u36984 \u31995 \u32113 \
+            </h1>\
+            <p class="text-slate-400 text-xs md:text-sm mt-2">\uc0\u25163 \u27231 \u21508 \u33258 \u22635 \u23531  \u8231  \u28961 \u32299 \u38642 \u31471 \u21516 \u27493  \u8231  \u21311 \u21517 \u20844 \u32004 \u25976 \u28436 \u31639 \u27861 </p>\
+\
+            <!-- \uc0\u38913 \u31844 \u36984 \u25799 \u22120 \u65306 \u19968 \u33324 \u20351 \u29992 \u32773 \u20677 \u39023 \u31034 \u21839 \u21367 \u22635 \u23531 \u65292 Host \u27169 \u24335 \u19979 \u39023 \u31034 \u35299 \u37782 \u29376 \u24907  -->\
+            <div class="flex justify-center mt-6 gap-2 bg-slate-900/80 p-1.5 rounded-xl border border-slate-800 max-w-xs mx-auto">\
+                <button @click="currentView = 'survey'" \
+                        :class="currentView === 'survey' ? 'bg-rose-600 text-white font-bold shadow-lg' : 'text-slate-400 hover:text-white'"\
+                        class="flex-1 py-2 rounded-lg text-sm transition-all duration-200">\
+                    <i class="fa-solid fa-pen-to-square mr-1"></i> \uc0\u20559 \u22909 \u22635 \u23531 \
+                </button>\
+                <button x-show="isHost" @click="currentView = 'host'; fetchRemoteSubmissions()" \
+                        :class="currentView === 'host' ? 'bg-amber-600 text-white font-bold shadow-lg' : 'text-slate-400 hover:text-white'"\
+                        class="flex-1 py-2 rounded-lg text-sm transition-all duration-200">\
+                    <i class="fa-solid fa-crown mr-1"></i> Howard \uc0\u20027 \u25511 \u21488 \
+                </button>\
+            </div>\
+        </header>\
+\
+        <!-- VIEW 1: MEMBER SURVEY -->\
+        <main x-show="currentView === 'survey'" class="space-y-6">\
+            <section class="glass-card rounded-2xl p-5 shadow-xl">\
+                <label class="block text-slate-300 text-sm font-bold mb-2">\uc0\u35531 \u36664 \u20837 \u20320 \u30340 \u21517 \u23383 \u65306 </label>\
+                <input type="text" x-model="memberName" @input="checkHostKey()" placeholder="\uc0\u20363 \u22914 \u65306 \u23567 \u26126 \u12289 Howard" \
+                       class="w-full bg-slate-900 border border-slate-700 rounded-xl p-3 text-white focus:outline-none focus:border-rose-500 transition-all">\
+                <p x-show="isHost" class="text-xs text-amber-400 mt-2"><i class="fa-solid fa-shield-halved mr-1"></i> \uc0\u24050 \u20597 \u28204 \u21040  Howard \u20027 \u25345 \u20154 \u36523 \u20998 \u65292 \u20027 \u25511 \u21488 \u21151 \u33021 \u24050 \u38283 \u21855 \u65281 </p>\
+            </section>\
+\
+            <section class="glass-card rounded-2xl p-5 border-l-4 border-rose-500 shadow-xl">\
+                <div class="flex items-center gap-2 mb-3">\
+                    <span class="bg-rose-600 text-white text-xs font-bold px-2 py-0.5 rounded">Tier 0</span>\
+                    <h2 class="text-lg font-bold text-white"><i class="fa-solid fa-location-dot text-rose-500 mr-1"></i> \uc0\u36984 \u25799 \u26412 \u27425 \u32858 \u39184 \u21312 \u22495 </h2>\
+                </div>\
+                <div class="grid grid-cols-5 gap-2">\
+                    <template x-for="dist in districts" :key="dist">\
+                        <button @click="selectedDistrict = dist" \
+                                :class="selectedDistrict === dist ? 'bg-rose-600 text-white border-rose-400 font-bold shadow-md scale-105' : 'bg-slate-800/80 text-slate-300 border-slate-700 hover:bg-slate-70}
